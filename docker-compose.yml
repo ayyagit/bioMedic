@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: capstoneatdocker/mysql:latest
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=userauth
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+      - ./database/Biomedical.sql:/docker-entrypoint-initdb.d/init.sql
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - turingmysql      
+  app:
+    image: capstoneatdocker/biomedical_app:latest
+    depends_on:
+      - mysqldb
+    build: .
+    restart: on-failure
+    environment: # Pass environment variables to the service
+      - DATABASE_HOST=mysqldb
+      - DATABASE_USER=newuser1
+      - DATABASE_PASSWORD=password
+      - DATABASE_NAME=userauth
+      - DATABASE_PORT=3306    
+    ports:
+      - "8080:8080"
+    volumes:
+      - .m2:/root/.m2
+    stdin_open: true
+    tty: true
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - turingmysql
+volumes:
+  db:
+  
+networks:
+  turingmysql:
+    driver: bridge  
