@@ -9,8 +9,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class BioMedicalApplicationTests {
 
-	@Test
+	@Autowired
+	private WebTestClient webClient;
+
+	/*@Test
 	public void contextLoads() {
+	}*/ sdfsdf
+
+	@Test
+	public void exampleTest() {
+		this.webClient.get().uri("/").exchange().expectStatus().isOk()
+				.expectBody(String.class).isEqualTo("user/success");
 	}
 
 }
