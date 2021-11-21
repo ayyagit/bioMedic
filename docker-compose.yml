@@ -28,7 +28,7 @@ services:
       - DATABASE_NAME=userauth
       - DATABASE_PORT=3306    
     ports:
-      - "8080:8080"
+      - "80:8080"
     volumes:
       - .m2:/root/.m2
     stdin_open: true
