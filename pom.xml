@@ -88,7 +88,7 @@
   <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
 	
@@ -137,6 +137,16 @@
       </configuration> 
     </plugin> 
   
+  	<plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.21.0</version>
+        <configuration>
+            <includes>
+                <include>BioMedicalApplicationTests.java</include>
+            </includes>
+        </configuration>
+    </plugin>
+	
    <!--<plugin> 
     <groupId>org.apache.tomcat.maven</groupId> 
     <artifactId>tomcat7-maven-plugin</artifactId> 
